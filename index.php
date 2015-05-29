@@ -3,6 +3,7 @@
 session_start();
 
 require_once("controller/UserController.php");
+require_once("controller/JokeController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
@@ -27,6 +28,16 @@ $urls = [
     },
     "logout" => function () {
         UserController::logout();
+    },
+    "joke" => function () {
+        JokeController::index();
+    },
+    "joke/add" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            JokeController::add();
+        } else {
+            JokeController::showAddForm();
+        }
     },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "login-insecure");
