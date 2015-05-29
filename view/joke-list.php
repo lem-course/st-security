@@ -14,7 +14,7 @@
         <li><b><?= $joke["joke_date"] ?></b>: <?= $joke["joke_text"] ?>
 
         <?php if ($loggedIn): ?>
-        	<a href="<?= BASE_URL . "joke?id=" . $joke["id"] ?>">edit</a>
+        	<a href="<?= BASE_URL . "joke/edit?id=" . $joke["id"] ?>">edit</a>
         <?php endif; ?>
 
         </li>

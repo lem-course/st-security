@@ -8,7 +8,7 @@
 
 <?php include("view/menu-links.php"); ?>
 
-<p>Welcome to the secret page, <b><?= $username ?></b>. Your provided a valid username and password.</p>
+<p>Welcome <b><?= $username ?></b>. Your provided a valid username and password.</p>
 <ul>
     <li><b>Username:</b> <code class="highlight"><?= $username ?></code></li>
     <li><b>Password:</b> <code class="highlight"><?= $password ?></code></li>

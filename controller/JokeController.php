@@ -38,7 +38,7 @@ class JokeController {
 
     public static function add() {
         $rules = [
-            "joke_text" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "joke_text" => FILTER_UNSAFE_RAW,
             "joke_date" => [
                 "filter" => FILTER_CALLBACK,
                 "options" => function ($value) {
@@ -74,7 +74,7 @@ class JokeController {
 
     public static function showEditForm($data = [], $errors = []) {
         if (empty($data)) {
-            $data = BookDB::get($_GET["id"]);
+            $data = JokeDB::get($_GET["id"]);
         }
 
         if (empty($errors)) {
@@ -83,53 +83,45 @@ class JokeController {
             }
         }
         
-        ViewHelper::render("view/book-edit.php", ["book" => $data, "errors" => $errors]);
+        ViewHelper::render("view/joke-edit.php", ["joke" => $data, "errors" => $errors]);
     }    
 
     public static function edit() {
         $rules = [
-            "author" => [
-                "filter" => FILTER_VALIDATE_REGEXP,
-                "options" => ["regexp" => "/^[ a-zA-ZšđčćžŠĐČĆŽ\.\-]+$/"]
-            ],
-            "title" => FILTER_SANITIZE_SPECIAL_CHARS,
-            "description" => FILTER_SANITIZE_SPECIAL_CHARS,
-            "year" => [
-                "filter" => FILTER_VALIDATE_INT,
-                "options" => ["min_range" => 1500, "max_range" => 2020]
-            ],
-            "price" => [
+            "joke_text" => FILTER_UNSAFE_RAW,
+            "joke_date" => [
                 "filter" => FILTER_CALLBACK,
-                "options" => function ($value) { 
-                    return (is_numeric($value) && $value >= 0) ? floatval($value) : false; 
+                "options" => function ($value) {
+                    $date = explode("-", $value);
+
+                    if (checkdate($date[1], $date[2], $date[0])) {
+                        return $value;
+                    } else {
+                        return false;
+                    }
                 }
-            ],
-            "quantity" => [
-                "filter" => FILTER_VALIDATE_INT,
-                "options" => ["min_range" => 0]
             ],
             "id" => [
                 "filter" => FILTER_VALIDATE_INT,
                 "options" => ["min_range" => 1]
             ]
         ];
+
         $data = filter_input_array(INPUT_POST, $rules);
 
-        $errors["author"] = $data["author"] === false ? "Provide the name of the author." : "";
-        $errors["title"] = empty($data["title"]) ? "Provide the book title." : "";
-        $errors["year"] = $data["year"] === false ? "Year should be between 1500 and 2020." : "";
-        $errors["price"] = $data["price"] === false ? "Price should be non-negative." : "";
-        $errors["quantity"] = $data["quantity"] === false ? "Quantity should be non-negative." : "";
+        $errors["joke_date"] = $data["joke_date"] === false ? "Invalid date." : "";
+        $errors["joke_text"] = empty($data["joke_text"]) ? "Don't joke, write a joke." : "";
+        $errors["id"] = empty($data["id"]) ? "ID is missing." : "";
 
+        // Is there an error?
         $isDataValid = true;
         foreach ($errors as $error) {
             $isDataValid = $isDataValid && empty($error);
         }
 
         if ($isDataValid) {
-            BookDB::update($data["id"], $data["author"], $data["title"], $data["description"], 
-                $data["price"], $data["year"], $data["quantity"]);
-            ViewHelper::redirect(BASE_URL . "book?id=" . $data["id"]);
+            JokeDB::update($data["id"], $data["joke_date"], $data["joke_text"]);
+            ViewHelper::redirect(BASE_URL . "joke");
         } else {
             self::showEditForm($data, $errors);
         }
@@ -145,7 +137,7 @@ class JokeController {
                 "filter" => FILTER_VALIDATE_BOOLEAN
             ]
         ];
-        $data = filter_input_array(INPUT_POST, $rules);
+        $data = filter_input_array(INPUT_GET, $rules);
 
         $errors["id"] = $data["id"] === null ? "Cannot delete without a valid ID." : "";
         $errors["delete_confirmation"] = $data["delete_confirmation"] === null ? "Forgot to check the delete box?" : "";
@@ -156,13 +148,13 @@ class JokeController {
         }
 
         if ($isDataValid) {
-            BookDB::delete($data["id"]);
-            $url = BASE_URL . "book";
+            JokeDB::delete($data["id"]);
+            $url = BASE_URL . "joke";
         } else {
             if ($data["id"] !== null) {
-                $url = BASE_URL . "book/edit?id=" . $data["id"];
+                $url = BASE_URL . "joke/edit?id=" . $data["id"];
             } else {
-                $url = BASE_URL . "book";
+                $url = BASE_URL . "joke";
             }
         }
 

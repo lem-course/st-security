@@ -21,7 +21,7 @@ class UserController {
                 "password" => htmlspecialchars($_POST["password"])
             ];
 
-            ViewHelper::render("view/user-secret-page.php", $vars);
+            ViewHelper::render("view/user-login-success.php", $vars);
         } else {
             ViewHelper::render("view/user-login-form.php", 
                 ["errorMessage" => "Invalid username or password."]);
@@ -43,7 +43,7 @@ class UserController {
                 "password" => htmlspecialchars($_POST["password"])
             ];
 
-            ViewHelper::render("view/user-secret-page.php", $vars);
+            ViewHelper::render("view/user-login-success.php", $vars);
         } else {
             ViewHelper::render("view/user-login-form.php", 
                 ["errorMessage" => "Invalid username or password."]);
@@ -53,6 +53,6 @@ class UserController {
     public static function logout() {
         User::logout();
 
-        ViewHelper::redirect("login");
+        ViewHelper::redirect("joke");
     }
 }

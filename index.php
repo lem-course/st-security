@@ -39,8 +39,18 @@ $urls = [
             JokeController::showAddForm();
         }
     },
+    "joke/edit" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            JokeController::edit();
+        } else {
+            JokeController::showEditForm();
+        }
+    },
+    "joke/delete" => function () {
+        JokeController::delete();
+    },
     "" => function () {
-        ViewHelper::redirect(BASE_URL . "login-insecure");
+        ViewHelper::redirect(BASE_URL . "joke");
     },
 ];
 
