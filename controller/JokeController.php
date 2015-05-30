@@ -15,7 +15,7 @@ class JokeController {
 
     // Function can be called without providing arguments. In such case,
     // $data and $errors paramateres are initialized as empty arrays
-    public static function showAddForm($data = [], $errors = []) {
+    public static function addForm($data = [], $errors = []) {
         // If $data is an empty array, let's set some default values
         if (empty($data)) {
             $data = [
@@ -72,7 +72,7 @@ class JokeController {
         }
     }
 
-    public static function showEditForm($data = [], $errors = []) {
+    public static function editForm($data = [], $errors = []) {
         if (empty($data)) {
             $data = JokeDB::get($_GET["id"]);
         }

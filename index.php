@@ -16,14 +16,14 @@ $urls = [
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::loginInsecure();
         } else {
-            UserController::showLoginFormInsecure();
+            UserController::loginFormInsecure();
         }
     },
     "login" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::login();
         } else {
-            UserController::showLoginForm();
+            UserController::loginForm();
         }
     },
     "logout" => function () {
@@ -36,14 +36,14 @@ $urls = [
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JokeController::add();
         } else {
-            JokeController::showAddForm();
+            JokeController::addForm();
         }
     },
     "joke/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JokeController::edit();
         } else {
-            JokeController::showEditForm();
+            JokeController::editForm();
         }
     },
     "joke/delete" => function () {

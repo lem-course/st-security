@@ -6,7 +6,7 @@ require_once("ViewHelper.php");
 
 class UserController {
 
-    public static function showLoginFormInsecure() {
+    public static function loginFormInsecure() {
         ViewHelper::render("view/user-login-form.php", ["formAction" => "login-insecure"]);
     }
 
@@ -23,12 +23,14 @@ class UserController {
 
             ViewHelper::render("view/user-login-success.php", $vars);
         } else {
-            ViewHelper::render("view/user-login-form.php", 
-                ["errorMessage" => "Invalid username or password."]);
+            ViewHelper::render("view/user-login-form.php", [
+                "errorMessage" => "Invalid username or password.",
+                "formAction" => "login-insecure"
+            ]);
         }
     }
 
-    public static function showLoginForm() {
+    public static function loginForm() {
         ViewHelper::render("view/user-login-form.php", ["formAction" => "login"]);
     }
 
@@ -45,14 +47,16 @@ class UserController {
 
             ViewHelper::render("view/user-login-success.php", $vars);
         } else {
-            ViewHelper::render("view/user-login-form.php", 
-                ["errorMessage" => "Invalid username or password."]);
+            ViewHelper::render("view/user-login-form.php", [
+                "errorMessage" => "Invalid username or password.",
+                "formAction" => "login"
+            ]);
         }
     }
 
     public static function logout() {
         User::logout();
 
-        ViewHelper::redirect("joke");
+        ViewHelper::redirect(BASE_URL . "joke");
     }
 }
