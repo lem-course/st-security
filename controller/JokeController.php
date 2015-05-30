@@ -128,6 +128,10 @@ class JokeController {
     }
 
     public static function delete() {
+        if (!User::isLoggedIn()) {
+            throw new Exception("Login required.");
+        }
+
         $rules = [
             "id" => [
                 "filter" => FILTER_VALIDATE_INT,
