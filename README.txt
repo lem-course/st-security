@@ -3,7 +3,7 @@
 This is a simple application that demonstrates a few typical web application vulnerablities. The example covers:
 
 * an SQL injection vulnerability,
-* a XSS vulnerability,
+* an XSS vulnerability,
 * a CSRF vulnerability,
 * an improper storage of sensitive data,
 * an improper use of HTTP methods,
