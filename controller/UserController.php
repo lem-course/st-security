@@ -35,20 +35,28 @@ class UserController {
     }
 
     public static function login() {
-        $user = UserDB::getUser($_POST["username"], $_POST["password"]);
+        $rules = [
+            "username" => ["filter" => FILTER_SANITIZE_SPECIAL_CHARS],
+            "password" => ["filter" => FILTER_SANITIZE_SPECIAL_CHARS]
+        ];
 
-        if ($user) {
+        $data = filter_input_array(INPUT_POST, $rules);
+        $user = UserDB::getUser($data["username"], $data["password"]);
+
+        $errorMessage =  empty($data["username"]) || empty($data["password"]) || $user == null ? "Invalid username or password." : "";
+
+        if (empty($errorMessage)) {
             User::login($user);
 
             $vars = [
-                "username" => htmlspecialchars($_POST["username"]),
-                "password" => htmlspecialchars($_POST["password"])
+                "username" => $data["username"],
+                "password" => $data["password"]
             ];
 
             ViewHelper::render("view/user-login-success.php", $vars);
         } else {
             ViewHelper::render("view/user-login-form.php", [
-                "errorMessage" => "Invalid username or password.",
+                "errorMessage" => $errorMessage,
                 "formAction" => "login"
             ]);
         }
