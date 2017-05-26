@@ -5,7 +5,7 @@ class User {
 		$_SESSION["user"] = $user;
 	}
 
-	public function logout($user) {
+	public function logout() {
 		session_destroy();
 	}
 
