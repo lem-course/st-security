@@ -18,11 +18,12 @@ CREATE TABLE `user1` (
   `password` varchar(255) COLLATE utf8_slovenian_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 INSERT INTO `user1` VALUES 
 (1,'user', 'password'), 
-(2,'student', 'vaje');
+(2,'student', 'vaje'),
+(3,'asistent', 'vaje');
 
 CREATE TABLE `user2` ( 
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -30,11 +31,12 @@ CREATE TABLE `user2` (
   `password` varchar(255) COLLATE utf8_slovenian_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 INSERT INTO `user2` VALUES 
-(1,'user', '$2y$10$6QZqRs9p/3mOUEVSnu60MuVBeYa24mt945zAIZaWj0amcNwsw7uxC'), 
-(2,'student', '$2y$10$r0PrTFgj8yFPYy1VwvIoj.309SYaXqDaF/EJARooyhat/1gPw0zo2');
+(1,'user', '$2y$10$6QZqRs9p/3mOUEVSnu60MuVBeYa24mt945zAIZaWj0amcNwsw7uxC'),     -- password
+(2,'student', '$2y$10$r0PrTFgj8yFPYy1VwvIoj.309SYaXqDaF/EJARooyhat/1gPw0zo2'),  -- vaje
+(3,'asistent', '$2y$10$xXvdnL5FadXAwctopETgZu.TIUcLGyNQUajTHLPIwA0.Q3C9ouoaW'); -- vaje
 
 CREATE TABLE `jokes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
